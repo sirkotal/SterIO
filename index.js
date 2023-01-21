@@ -5,14 +5,17 @@ const config = require("./config.json");
 const client = new Client({
     intents: [Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILDS]
 });
-client.login(config.token);
 
-client.once('ready', () => {
+client.on('ready', () => {
     console.log('Ready!');
+    client.user.setActivity({
+        name: "Hammer Time",
+        type: "LISTENING"
+    });
    });
    
-   client.on("error", console.error);
-   client.on("warn", console.warn);
+client.on("error", console.error);
+client.on("warn", console.warn);
 
 const player = new Player(client);
 
@@ -42,3 +45,10 @@ player.on("channelEmpty", (queue) => {
 player.on("queueEnd", (queue) => {
     queue.metadata.send("✅ | Queue has finished!");
 });
+
+client.on("messageCreate", async (message) => {
+    if (message.author.bot || !message.guild) return;
+    if (!client.application?.owner) await client.application?.fetch();
+});
+
+client.login(config.token);

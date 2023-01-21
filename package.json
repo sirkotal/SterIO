@@ -1,6 +1,7 @@
 {
   "name": "SterIO",
   "version": "1.0.0",
+  "repository": "https://github.com/sirkotal/SterIO.git",
   "description": "Music bot for Discord",
   "main": "index.js",
   "scripts": {
