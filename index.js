@@ -1,10 +1,10 @@
-const { Client, GuildMember, Intents } = require("discord.js");
+const { Client, Intents } = require('discord.js');
+const { GuildMember } = require("discord.js");
 const { Player, QueryType } = require("discord-player");
 const config = require("./config.json");
 
-const client = new Client({
-    intents: [Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILDS]
-});
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES] });
+
 
 client.on('ready', () => {
     console.log('Ready!');
