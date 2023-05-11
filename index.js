@@ -6,6 +6,8 @@ const client = new Client({
     intents: [Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILDS]
 });
 
+client.log(config.token);
+
 client.on('ready', () => {
     console.log('Ready!');
     client.user.setActivity({
@@ -44,30 +46,6 @@ player.on("channelEmpty", (queue) => {
 
 player.on("queueEnd", (queue) => {
     queue.metadata.send("✅ | Queue has finished!");
-});
-
-client.on("messageCreate", async (message) => {
-    if (message.author.bot || !message.guild) return;
-    if (!client.application?.owner) await client.application?.fetch();
-
-    if (message.content === "!deploy" && message.author.id === client.application?.owner?.id) {
-        await message.guild.commands.set([
-            {
-                name: "play",
-                description: "Plays a song from youtube",
-                options: [
-                    {
-                        name: "query",
-                        type: "STRING",
-                        description: "The song you want to play",
-                        required: true
-                    }
-                ]
-            }
-        ]);
-
-        await message.reply("Deployed!");
-    }
 });
 
 client.login(config.token);
